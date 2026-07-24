@@ -1,0 +1,23 @@
+schema_version: 1
+platform_version: 1.0.0
+app:
+  name: Golden HighRise Starter
+  slug: golden-highrise-starter
+  delivery: ghl-custom-page
+  tenant_mode: multi-location
+  deployment: node-server
+branding:
+  namespace: liveai-highrise
+  typography: Inter
+highlevel:
+  iframe_context: true
+  oauth: true
+  level: location
+  scopes: []
+modules:
+  enabled: [core]
+roles: [owner, administrator]
+release:
+  require_ci: true
+  require_security_review: true
+  automatic_production_deploy: false
