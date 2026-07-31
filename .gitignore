@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Nuxt
+.nuxt/
+.output/
+.dist/
+dist/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+.npmrc
+.yarnrc.yml
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+
+# Test and coverage output
+coverage/
+playwright-report/
+test-results/

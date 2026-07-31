@@ -1,0 +1,44 @@
+name: Unpack knowledge pack
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'archive/highrise-app-architect-knowledge-pack.zip'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unpack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Expand knowledge pack
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf knowledge-base .pack-tmp
+          mkdir -p knowledge-base .pack-tmp
+          unzip -q archive/highrise-app-architect-knowledge-pack.zip -d .pack-tmp
+          cp -R .pack-tmp/highrise-app-architect-pack/. knowledge-base/
+          rm -rf .pack-tmp
+
+      - name: Commit expanded files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add knowledge-base
+          if git diff --cached --quiet; then
+            echo 'Knowledge base is already current.'
+            exit 0
+          fi
+          git commit -m 'docs: expand HighRise knowledge base'
+          git push
